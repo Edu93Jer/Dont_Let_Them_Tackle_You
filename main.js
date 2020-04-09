@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d')
 
 const images = {
   background: './imagenes/campo2.jpg',
-  placapumFront: './imagenes/placapum.png',
+  placapumFront: './imagenes/Placapum.png',
   placapumRight: './imagenes/placapum1.png',
   placapumLeft: './imagenes/placapum2.png',
   mario: './imagenes/mario7.png',
