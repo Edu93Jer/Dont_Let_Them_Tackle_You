@@ -42,6 +42,9 @@ class Sonidos {
   pause() {
     this.audio.pause()
   }
+  load() {
+    this.audio.load()
+  }
 }
 
 class Background {
@@ -200,21 +203,23 @@ const marioWin = new Winners(125, 170, 300, 300, images.marioWinner)
 const luigiWin = new Winners(125, 170, 300, 300, images.luigiWinner)
 const stmpWin = new Winners(120, 340, 350, 200, images.winner)
 
-const lobbySound = new Sonidos('./audios/odissey.mp3', 0.2)
-const gameSound = new Sonidos('./audios/slide 64.mp3', 0.04)
-const stepsMarioSound = new Sonidos('./audios/pisada1.wav', 0.2)
-const stepsLuigiSound = new Sonidos('./audios/pisada2.wav', 0.2)
-const stepsPlacapumsSound = new Sonidos('./audios/pisada4.wav', 0.4)
-const coalisionSoundMario = new Sonidos('./audios/hurtluigi.wav', 0.3)
-const coalisionSoundLuigi = new Sonidos('./audios/hurtmario.wav', 0.3)
-const rebotaSound = new Sonidos('./audios/rebota.wav', 0.4)
-const winnerSound = new Sonidos('./audios/winner.mp3', 0.1)
+const lobbySound = new Sonidos('./audios/odissey.mp3', 0.1)
+const gameSound = new Sonidos('./audios/slide 64.mp3', 0.03)
+const stepsMarioSound = new Sonidos('./audios/pisada1.wav', 0.1)
+const stepsLuigiSound = new Sonidos('./audios/pisada2.wav', 0.1)
+const stepsPlacapumsSound = new Sonidos('./audios/pisada4.wav', 0.2)
+const coalisionSoundMario = new Sonidos('./audios/hurtluigi.wav', 0.2)
+const coalisionSoundLuigi = new Sonidos('./audios/hurtmario.wav', 0.2)
+const rebotaSound = new Sonidos('./audios/rebota.wav', 0.3)
+const winnerSound = new Sonidos('./audios/winner.mp3', 0.05)
 
 //const placapumF = new Placapums(0, -100, images.placapumFront, y++)
 //const placapumR = new Placapums(canvas.width - 100, 0, images.placapumRight, x--)
 //const placapumL = new Placapums(-100, 0, images.placapumLeft, x++)
 
 let interval
+
+let lobbyInstructions
 
 let frames = 0
 
@@ -405,8 +410,10 @@ function drawMarioLifes() {
       vidaR1.draw()
       break
     case 0:
+      gameSound.pause()
       luigiWin.draw()
       stmpWin.draw()
+      winnerSound.load()
       winnerSound.play()
       gameOver()
       break
@@ -428,8 +435,10 @@ function drawLuigiLifes() {
       vidaG3.draw()
       break
     case 0:
+      gameSound.pause()
       marioWin.draw()
       stmpWin.draw()
+      winnerSound.load()
       winnerSound.play()
       gameOver()
       break
@@ -443,6 +452,8 @@ function gameOver() {
 function start() {
   if (interval) return
   interval = setInterval(update, 1000 / 60)
+  gameSound.load()
+  gameSound.play()
 }
 
 function restart() {
@@ -492,8 +503,8 @@ document.addEventListener('keyup', (e) => {
 document.onkeydown = function (e) {
   switch (e.keyCode) {
     case 32:
+      lobbySound.pause()
       start()
-      gameSound.play()
       break
     case 13:
       restart()
@@ -501,10 +512,11 @@ document.onkeydown = function (e) {
   }
 }
 
-// function start() {
-//   if (interval) return
-//   interval = setInterval(update, 1000 / 60)
-// }
+document.onclick = function (e) {
+  if (lobbyInstructions == true) return
+  lobbyInstructions = false
+  lobbySound.play()
+}
 
 // const ruler = () => {
 //   canvas.addEventListener('mousedown', function (clientX) {
