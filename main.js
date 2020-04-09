@@ -2,31 +2,31 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 const images = {
-  background: './imagenes/campo2.jpg',
-  placapumFront: './imagenes/Placapum.png',
-  placapumRight: './imagenes/placapum1.png',
-  placapumLeft: './imagenes/placapum2.png',
-  mario: './imagenes/mario7.png',
-  luigi: './imagenes/luigi4.png',
-  placapumsLogo: './imagenes/logoPlacapums.png',
-  vsLogo: './imagenes/pngocean.com (2).png',
-  vidasMario: './imagenes/lifeRed.png',
-  vidasLuigi: './imagenes/lifeGreen.png',
-  marioWinner: './imagenes/pngocean.com (4).png',
-  luigiWinner: './imagenes/pngocean.com (5).png',
-  winner: './imagenes/winner2.png',
-  start: './imagenes/start2.png',
+  background: 'imagenes/campo2.jpg',
+  placapumFront: 'imagenes/Placapum.png',
+  placapumRight: 'imagenes/placapum1.png',
+  placapumLeft: 'imagenes/placapum2.png',
+  mario: 'imagenes/mario7.png',
+  luigi: 'imagenes/luigi4.png',
+  placapumsLogo: 'imagenes/logoPlacapums.png',
+  vsLogo: 'imagenes/pngocean.com (2).png',
+  vidasMario: 'imagenes/lifeRed.png',
+  vidasLuigi: 'imagenes/lifeGreen.png',
+  marioWinner: 'imagenes/pngocean.com (4).png',
+  luigiWinner: 'imagenes/pngocean.com (5).png',
+  winner: 'imagenes/winner2.png',
+  start: 'imagenes/start2.png',
 }
 
 const audios = {
-  lobby: './audios/odissey.mp3',
-  play: './audios/slide 64.mp3',
-  stepsMario: './audios/pisada1.wav',
-  stepsLuigi: './audios/pisada2.wav',
-  stepsPlacapums: './audios/pisada4.wav',
-  coalision: './audios/choque1.wav',
-  rebota: './audios/rebota.wav',
-  winner: './audios/winner.mp3',
+  lobby: 'audios/odissey.mp3',
+  play: 'audios/slide 64.mp3',
+  stepsMario: 'audios/pisada1.wav',
+  stepsLuigi: 'audios/pisada2.wav',
+  stepsPlacapums: 'audios/pisada4.wav',
+  coalision: 'audios/choque1.wav',
+  rebota: 'audios/rebota.wav',
+  winner: 'audios/winner.mp3',
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
