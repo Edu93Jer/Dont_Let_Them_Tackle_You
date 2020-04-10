@@ -6,7 +6,7 @@ Don't let them tackle you!, is a local multiplayer minigame, created as my proje
 
 I love american football and videogames, so why not to make a little **videogame** about football and one of the most famous characters of all the timens in videogames history.
 
-![MarioBros](imagenes/pngocean.com (4).png)
+![MarioBros](imagenes/mario3.jpg)
 
 ## How it works...
 
