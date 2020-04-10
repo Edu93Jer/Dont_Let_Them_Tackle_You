@@ -1,10 +1,12 @@
 # Don't let them tackle you!
 
+![Logo](imagenes/tackleLogo.png)
+
 Don't let them tackle you!, is a local multiplayer minigame, created as my project of module 1 in Ironhanck.
 
 I love american football and videogames, so why not to make a little **videogame** about football and one of the most famous characters of all the timens in videogames history.
 
-[Logo](imagenes/tackleLogo.png)
+![MarioBros](imagenes/pngocean.com (4).png)
 
 ## How it works...
 
@@ -16,9 +18,12 @@ Each player have 3 lifes, so try not to finish all of them.
 
 The last man standing wins, so watch out because your rival can hinder you.
 
-![Lobby](imagenes/instruc.png)
+![How to play...](imagenes/instruc.png)
 
-##Created by:
+## Created by:
+
 **Eduardo Zamarrón**
 
-##Thanks for playing!
+## Thanks for playing!
+
+### PS. Remember to keep Susana Distancia (lol)
