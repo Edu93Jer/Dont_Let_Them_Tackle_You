@@ -6,8 +6,8 @@ const images = {
   placapumFront: 'imagenes/Placapum.png',
   placapumRight: 'imagenes/placapum1.png',
   placapumLeft: 'imagenes/placapum2.png',
-  mario: 'imagenes/mario7.png',
-  luigi: 'imagenes/luigi4.png',
+  mario: 'imagenes/mario-sprite-png-6.png',
+  luigi: 'imagenes/luigi-sprite-png-1.png',
   placapumsLogo: 'imagenes/logoPlacapums.png',
   vsLogo: 'imagenes/pngocean.com (2).png',
   vidasMario: 'imagenes/lifeRed.png',
@@ -16,6 +16,8 @@ const images = {
   luigiWinner: 'imagenes/pngocean.com (5).png',
   winner: 'imagenes/winner2.png',
   start: 'imagenes/start2.png',
+  marioLobby: 'imagenes/mario7.png',
+  luigiLobby: 'imagenes/luigi4.png',
 }
 
 const audios = {
@@ -29,7 +31,7 @@ const audios = {
   winner: 'audios/winner.mp3',
 }
 
-///////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 class Sonidos {
   constructor(source, vol) {
@@ -104,33 +106,27 @@ class Winners {
 }
 
 class Jugadores {
-  constructor(x, y, images) {
+  constructor(images, sx, sy, sw, sh, x, y, width, height, imagenLo) {
     this.x = x
     this.y = y
+    this.sx = sx
+    this.sy = sy
+    this.sw = sw
+    this.sh = sh
     this.speed = 5
     this.velY = 0
     this.velX = 0
-    this.width = 80
-    this.height = 120
+    this.width = width
+    this.height = height
     this.vidas = 3
     this.receiveDamage = true
     this.img = new Image()
     this.img.src = images
+    this.imgLobby = new Image()
+    this.imgLobby.src = imagenLo
   }
-  // left() {
-  //   this.x -= 15
-  // }
-  // right() {
-  //   this.x += 15
-  // }
-  // up() {
-  //   this.y -= 15
-  // }
-  // down() {
-  //   this.y += 15
-  // }
   draw() {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+    ctx.drawImage(this.imgLobby, this.x, this.y, this.width, this.height)
   }
   limite() {
     if (this.x > 443) {
@@ -167,7 +163,6 @@ class Placapums {
     this.placapumLeft.src = imagen
     this.direction = direction
   }
-
   draw() {
     if (this.direction === 'front') {
       this.y += 4.5 // esta es la velocidad a la que se desplaza cada uno
@@ -184,9 +179,47 @@ class Placapums {
 
 //////////////////////////////////////////////////////////////////////////////////
 
+let interval
+
+let animate = 0
+
+const cycleLoop = [1, 0, 1, 2]
+
+let lobbyInstructions
+
+let frames = 0
+
+const friccion = 0.8
+
+const keys = []
+
+const arreDePlacapums = []
+
 const campo = new Background()
-const marioBros = new Jugadores(105, 315, images.mario)
-const luigiBros = new Jugadores(360, 315, images.luigi)
+const marioBros = new Jugadores(
+  images.mario,
+  cycleLoop[animate] * 44,
+  0,
+  44,
+  53,
+  105,
+  315,
+  80,
+  120,
+  images.marioLobby
+)
+const luigiBros = new Jugadores(
+  images.luigi,
+  cycleLoop[animate] * 46,
+  0,
+  46,
+  62,
+  360,
+  315,
+  80,
+  120,
+  images.luigiLobby
+)
 const logoPlacaplums = new Logo(175, 120, 200, 120, images.placapumsLogo)
 const logoVS = new Logo(170, 200, 220, 200, images.vsLogo)
 const pressStart = new Logo(150, 450, 250, 90, images.start)
@@ -213,57 +246,14 @@ const coalisionSoundLuigi = new Sonidos('./audios/hurtmario.wav', 0.2)
 const rebotaSound = new Sonidos('./audios/rebota.wav', 0.3)
 const winnerSound = new Sonidos('./audios/winner.mp3', 0.05)
 
-//const placapumF = new Placapums(0, -100, images.placapumFront, y++)
-//const placapumR = new Placapums(canvas.width - 100, 0, images.placapumRight, x--)
-//const placapumL = new Placapums(-100, 0, images.placapumLeft, x++)
-
-let interval
-
-let lobbyInstructions
-
-let frames = 0
-
-const friccion = 0.8
-
-const keys = []
-
-const arreDePlacapums = []
-
-///////////////////////////////////////////////////////////////////////////////////
-// document.onkeydown = function (e) {
-//   switch (e.keyCode) {
-//     case 37:
-//       marioBros.left()
-//       break
-//     case 39:
-//       marioBros.right()
-//       break
-//     case 38:
-//       marioBros.up()
-//       break
-//     case 40:
-//       marioBros.down()
-//       break
-//     case 65:
-//       luigiBros.left()
-//       break
-//     case 68:
-//       luigiBros.right()
-//       break
-//     case 87:
-//       luigiBros.up()
-//       break
-//     case 83:
-//       luigiBros.down()
-//       break
-//   }
-// }
+/////////////////////////////////////////////////////////////////////////////////////////
 
 function marioMovement() {
   if (keys[68]) {
     if (marioBros.velX < marioBros.speed) {
       marioBros.velX++
       stepsMarioSound.play()
+      marioBros.sy = 103
     }
   }
 
@@ -271,6 +261,7 @@ function marioMovement() {
     if (marioBros.velX > -marioBros.speed) {
       marioBros.velX--
       stepsMarioSound.play()
+      marioBros.sy = 53
     }
   }
 
@@ -278,6 +269,7 @@ function marioMovement() {
     if (marioBros.velY < marioBros.speed) {
       marioBros.velY++
       stepsMarioSound.play()
+      marioBros.sy = 0
     }
   }
 
@@ -285,6 +277,7 @@ function marioMovement() {
     if (marioBros.velY > -marioBros.speed) {
       marioBros.velY--
       stepsMarioSound.play()
+      marioBros.sy = 152
     }
   }
 
@@ -300,6 +293,7 @@ function luigiMovement() {
     if (luigiBros.velX < luigiBros.speed) {
       luigiBros.velX++
       stepsLuigiSound.play()
+      luigiBros.sy = 124
     }
   }
 
@@ -307,6 +301,7 @@ function luigiMovement() {
     if (luigiBros.velX > -luigiBros.speed) {
       luigiBros.velX--
       stepsLuigiSound.play()
+      luigiBros.sy = 62
     }
   }
 
@@ -314,6 +309,7 @@ function luigiMovement() {
     if (luigiBros.velY < luigiBros.speed) {
       luigiBros.velY++
       stepsLuigiSound.play()
+      luigiBros.sy = 0
     }
   }
 
@@ -321,6 +317,7 @@ function luigiMovement() {
     if (luigiBros.velY > -luigiBros.speed) {
       luigiBros.velY--
       stepsLuigiSound.play()
+      luigiBros.sy = 186
     }
   }
 
@@ -362,18 +359,6 @@ function checkCollisionOtherPlayerL() {
 
 function checkCollisionOtherPlayerM() {
   if (luigiBros.isTouching(marioBros)) return (luigiBros.velX = +2), (luigiBros.velY = -2)
-}
-
-function limiteEntreJugadores() {
-  if (this.x > 443) {
-    return (this.x -= 10)
-  } else if (this.x < 30) {
-    return (this.x += 10)
-  } else if (this.y > 510) {
-    return (this.y -= 10)
-  } else if (this.y < 70) {
-    return (this.y += 10)
-  }
 }
 
 function generarPlacapums() {
@@ -445,6 +430,43 @@ function drawLuigiLifes() {
   }
 }
 
+function dibujaSpriteLuigi() {
+  ctx.drawImage(
+    luigiBros.img,
+    cycleLoop[animate] * 46.66,
+    luigiBros.sy,
+    luigiBros.sw,
+    luigiBros.sh,
+    luigiBros.x,
+    luigiBros.y,
+    luigiBros.width,
+    luigiBros.height
+  )
+}
+
+function dibujaSpriteMario() {
+  ctx.drawImage(
+    marioBros.img,
+    cycleLoop[animate] * 44.16,
+    marioBros.sy,
+    marioBros.sw,
+    marioBros.sh,
+    marioBros.x,
+    marioBros.y,
+    marioBros.width,
+    marioBros.height
+  )
+}
+
+function spriteFrames() {
+  if (frames % 5 === 0) {
+    animate++
+    if (animate === 4) animate = 0
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 function gameOver() {
   clearInterval(interval)
 }
@@ -474,8 +496,7 @@ function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   frames++
   campo.draw()
-  marioBros.draw()
-  luigiBros.draw()
+  spriteFrames()
   generarPlacapums()
   drawPlacapums()
   marioMovement()
@@ -484,6 +505,8 @@ function update() {
   drawLuigiLifes()
   marioBros.limite()
   luigiBros.limite()
+  dibujaSpriteLuigi()
+  dibujaSpriteMario()
   checkCollisionMario()
   checkCollisionLuigi()
   checkCollisionOtherPlayerL()
@@ -517,15 +540,3 @@ document.onclick = function (e) {
   lobbyInstructions = false
   lobbySound.play()
 }
-
-// const ruler = () => {
-//   canvas.addEventListener('mousedown', function (clientX) {
-//     let rect = canvas.getBoundingClientRect()
-//     let clickX = event.clientX - rect.left
-//     let clickY = event.clientY - rect.top
-//     console.log(`clicked on (${Math.floor(clickX)},${Math.floor(clickY)})`)
-//     console.log(frames)
-//   })
-// }
-
-// ruler()
