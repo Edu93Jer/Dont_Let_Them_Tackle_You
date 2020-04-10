@@ -8,14 +8,14 @@ const images = {
   placapumLeft: 'imagenes/placapum2.png',
   mario: 'imagenes/mario-sprite-png-6.png',
   luigi: 'imagenes/luigi-sprite-png-1.png',
-  placapumsLogo: 'imagenes/logoPlacapums.png',
-  vsLogo: 'imagenes/pngocean.com (2).png',
+  placapumsLogo: 'imagenes/Placapum.png',
+  vsLogo: 'imagenes/versuslogo.png',
   vidasMario: 'imagenes/lifeRed.png',
   vidasLuigi: 'imagenes/lifeGreen.png',
   marioWinner: 'imagenes/pngocean.com (4).png',
   luigiWinner: 'imagenes/pngocean.com (5).png',
   winner: 'imagenes/winner2.png',
-  start: 'imagenes/start2.png',
+  start: 'imagenes/space.png',
   marioLobby: 'imagenes/mario7.png',
   luigiLobby: 'imagenes/luigi4.png',
 }
@@ -202,8 +202,8 @@ const marioBros = new Jugadores(
   0,
   44,
   53,
-  105,
-  315,
+  145,
+  285,
   80,
   120,
   images.marioLobby
@@ -214,15 +214,15 @@ const luigiBros = new Jugadores(
   0,
   46,
   62,
-  360,
-  315,
+  335,
+  285,
   80,
   120,
   images.luigiLobby
 )
-const logoPlacaplums = new Logo(175, 120, 200, 120, images.placapumsLogo)
-const logoVS = new Logo(170, 200, 220, 200, images.vsLogo)
-const pressStart = new Logo(150, 450, 250, 90, images.start)
+const logoPlacaplums = new Logo(205, 105, 140, 130, images.placapumsLogo)
+const logoVS = new Logo(230, 240, 100, 90, images.vsLogo)
+const pressStart = new Logo(140, 420, 270, 90, images.start)
 
 const vidaR1 = new Lifes(20, 10, 35, 35, images.vidasMario)
 const vidaR2 = new Lifes(75, 10, 35, 35, images.vidasMario)
