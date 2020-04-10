@@ -4,9 +4,9 @@
 
 Don't let them tackle you!, is a local multiplayer minigame, created as my project of module 1 in Ironhanck.
 
-I love american football and videogames, so why not to make a little **videogame** about football and one of the most famous characters of all the timens in videogames history.
+I love american football and videogames, so why not to make a little **videogame** about football and one of the most famous characters of all the times in videogames history.
 
-![MarioBros](imagenes/mario3.jpg)
+![MarioBros](imagenes/mario7.png)
 
 ## How it works...
 

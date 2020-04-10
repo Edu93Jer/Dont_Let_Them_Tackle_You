@@ -106,7 +106,7 @@ class Winners {
 }
 
 class Jugadores {
-  constructor(images, sx, sy, sw, sh, x, y, width, height, imagenLo) {
+  constructor(images, sx, sy, sw, sh, x, y, imagenLo) {
     this.x = x
     this.y = y
     this.sx = sx
@@ -116,8 +116,8 @@ class Jugadores {
     this.speed = 5
     this.velY = 0
     this.velX = 0
-    this.width = width
-    this.height = height
+    this.width = 80
+    this.height = 120
     this.vidas = 3
     this.receiveDamage = true
     this.img = new Image()
@@ -129,9 +129,9 @@ class Jugadores {
     ctx.drawImage(this.imgLobby, this.x, this.y, this.width, this.height)
   }
   limite() {
-    if (this.x > 443) {
+    if (this.x > 470) {
       return (this.x -= 15), rebotaSound.play()
-    } else if (this.x < 30) {
+    } else if (this.x < 0) {
       return (this.x += 15), rebotaSound.play()
     } else if (this.y > 510) {
       return (this.y -= 15), rebotaSound.play()
@@ -194,6 +194,8 @@ const friccion = 0.8
 const keys = []
 
 const arreDePlacapums = []
+const arreDePlacapums1 = []
+const arreDePlacapums2 = []
 
 const campo = new Background()
 const marioBros = new Jugadores(
@@ -204,8 +206,6 @@ const marioBros = new Jugadores(
   53,
   145,
   285,
-  80,
-  120,
   images.marioLobby
 )
 const luigiBros = new Jugadores(
@@ -216,8 +216,6 @@ const luigiBros = new Jugadores(
   62,
   335,
   285,
-  80,
-  120,
   images.luigiLobby
 )
 const logoPlacaplums = new Logo(205, 105, 140, 130, images.placapumsLogo)
@@ -335,7 +333,25 @@ function checkCollisionMario() {
       marioBros.vidas -= 1
       coalisionSoundMario.play()
       console.log(`${marioBros.vidas} Mario`)
-      setTimeout(() => (marioBros.receiveDamage = true), 3000)
+      setTimeout(() => (marioBros.receiveDamage = true), 2500)
+    }
+  })
+  arreDePlacapums1.forEach((placapum) => {
+    if (marioBros.isTouching(placapum) && marioBros.receiveDamage === true) {
+      marioBros.receiveDamage = false
+      marioBros.vidas -= 1
+      coalisionSoundMario.play()
+      console.log(`${marioBros.vidas} Mario`)
+      setTimeout(() => (marioBros.receiveDamage = true), 2500)
+    }
+  })
+  arreDePlacapums2.forEach((placapum) => {
+    if (marioBros.isTouching(placapum) && marioBros.receiveDamage === true) {
+      marioBros.receiveDamage = false
+      marioBros.vidas -= 1
+      coalisionSoundMario.play()
+      console.log(`${marioBros.vidas} Mario`)
+      setTimeout(() => (marioBros.receiveDamage = true), 2500)
     }
   })
 }
@@ -347,7 +363,25 @@ function checkCollisionLuigi() {
       luigiBros.vidas -= 1
       coalisionSoundLuigi.play()
       console.log(`${luigiBros.vidas} Luigi`)
-      setTimeout(() => (luigiBros.receiveDamage = true), 3000)
+      setTimeout(() => (luigiBros.receiveDamage = true), 2500)
+    }
+  })
+  arreDePlacapums1.forEach((placapum) => {
+    if (luigiBros.isTouching(placapum) && luigiBros.receiveDamage === true) {
+      luigiBros.receiveDamage = false
+      luigiBros.vidas -= 1
+      coalisionSoundLuigi.play()
+      console.log(`${luigiBros.vidas} Luigi`)
+      setTimeout(() => (luigiBros.receiveDamage = true), 2500)
+    }
+  })
+  arreDePlacapums2.forEach((placapum) => {
+    if (luigiBros.isTouching(placapum) && luigiBros.receiveDamage === true) {
+      luigiBros.receiveDamage = false
+      luigiBros.vidas -= 1
+      coalisionSoundLuigi.play()
+      console.log(`${luigiBros.vidas} Luigi`)
+      setTimeout(() => (luigiBros.receiveDamage = true), 2500)
     }
   })
 }
@@ -361,23 +395,51 @@ function checkCollisionOtherPlayerM() {
   if (luigiBros.isTouching(marioBros)) return (luigiBros.velX = +2), (luigiBros.velY = -2)
 }
 
-function generarPlacapums() {
-  const numeroAleatorioX = Math.floor(Math.random() * (500 - 1) + 1) //aqui nos dara un numero random para despues utilizarlo en x, este numero va del ancho del canvas - la imagen.width por eso nos da 500 y el otro minimo es el origen de x o sea 0
-  const numeroAleatorioYL = Math.floor(Math.random() * (650 - 1) + 1)
-  const numeroAleatorioYR = Math.floor(Math.random() * (650 - 1) + 1)
-  if (frames % 200 === 0) {
-    //esto nos da la frecuencia con la que se van generando los pipes, queria encontrar una forma de hacer que se imprimieran cada uno de manera aleatoria, tipo hacer que saliera el de arriba cada segundo durante 15segundos, despues cambiar a salir cada uno de arriba cada 3 segundos durante 10 segundos, etc... asi con cada uno de los lados
+// function generarPlacapums() {
+//   const numeroAleatorioX = Math.floor(Math.random() * (500 - 1) + 1) //aqui nos dara un numero random para despues utilizarlo en x, este numero va del ancho del canvas - la imagen.width por eso nos da 500 y el otro minimo es el origen de x o sea 0
+//   const numeroAleatorioYL = Math.floor(Math.random() * (650 - 1) + 1)
+//   const numeroAleatorioYR = Math.floor(Math.random() * (650 - 1) + 1)
+//   if (frames % 200 === 0) {
+//     //esto nos da la frecuencia con la que se van generando los pipes, queria encontrar una forma de hacer que se imprimieran cada uno de manera aleatoria, tipo hacer que saliera el de arriba cada segundo durante 15segundos, despues cambiar a salir cada uno de arriba cada 3 segundos durante 10 segundos, etc... asi con cada uno de los lados
 
-    arreDePlacapums.push(new Placapums(numeroAleatorioX, -70, images.placapumFront, 'front')) // cada uno de los push agrega un pide diferente al array
-    arreDePlacapums.push(new Placapums(-70, numeroAleatorioYL, images.placapumLeft, 'left')) // su 'X' es negativa porquecomienza afuera del canvas del lado izquierdo, su 'Y' es aleatorio ya que cada vez que genere uno, saldra en diferente altura
-    arreDePlacapums.push(
+//     arreDePlacapums.push(new Placapums(numeroAleatorioX, -70, images.placapumFront, 'front')) // cada uno de los push agrega un pide diferente al array
+//     arreDePlacapums.push(new Placapums(-70, numeroAleatorioYL, images.placapumLeft, 'left')) // su 'X' es negativa porquecomienza afuera del canvas del lado izquierdo, su 'Y' es aleatorio ya que cada vez que genere uno, saldra en diferente altura
+//     arreDePlacapums.push(
+//       new Placapums(canvas.width - 30, numeroAleatorioYR, images.placapumRight, 'right')
+//     ) // su imagen cambia para solo generar una clase y en cada instancia colocarle la correspondiente, el string que tenemos al final dijimos era el parametro diretion lo igualamos al momento de imprimir por su clase Placapums en el metdodo draw()
+//   }
+// }
+
+function generarPlacapums() {
+  const numeroAleatorioX = Math.floor(Math.random() * (500 - 1) + 1)
+  const numeroAleatorioFX = Math.floor(Math.random() * (400 - 100) + 100)
+  if (frames % numeroAleatorioFX === 0) {
+    arreDePlacapums.push(new Placapums(numeroAleatorioX, -70, images.placapumFront, 'front'))
+  }
+}
+
+function generarPlacapums1() {
+  const numeroAleatorioYL = Math.floor(Math.random() * (650 - 1) + 1)
+  const numeroAleatorioFYL = Math.floor(Math.random() * (400 - 100) + 100)
+  if (frames % numeroAleatorioFYL === 0) {
+    arreDePlacapums1.push(new Placapums(-70, numeroAleatorioYL, images.placapumLeft, 'left'))
+  }
+}
+
+function generarPlacapums2() {
+  const numeroAleatorioYR = Math.floor(Math.random() * (650 - 1) + 1)
+  const numeroAleatorioFYR = Math.floor(Math.random() * (400 - 100) + 100)
+  if (frames % numeroAleatorioFYR === 0) {
+    arreDePlacapums2.push(
       new Placapums(canvas.width - 30, numeroAleatorioYR, images.placapumRight, 'right')
-    ) // su imagen cambia para solo generar una clase y en cada instancia colocarle la correspondiente, el string que tenemos al final dijimos era el parametro diretion lo igualamos al momento de imprimir por su clase Placapums en el metdodo draw()
+    )
   }
 }
 
 function drawPlacapums() {
   arreDePlacapums.forEach((elementoDeArray) => elementoDeArray.draw())
+  arreDePlacapums1.forEach((elementoDeArray) => elementoDeArray.draw())
+  arreDePlacapums2.forEach((elementoDeArray) => elementoDeArray.draw())
 }
 
 function drawMarioLifes() {
@@ -498,6 +560,8 @@ function update() {
   campo.draw()
   spriteFrames()
   generarPlacapums()
+  generarPlacapums1()
+  generarPlacapums2()
   drawPlacapums()
   marioMovement()
   luigiMovement()
