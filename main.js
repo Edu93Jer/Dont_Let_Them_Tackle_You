@@ -234,7 +234,7 @@ const marioWin = new Winners(125, 170, 300, 300, images.marioWinner)
 const luigiWin = new Winners(125, 170, 300, 300, images.luigiWinner)
 const stmpWin = new Winners(120, 340, 350, 200, images.winner)
 
-const lobbySound = new Sonidos('audios/odissey.mp3', 0.1)
+const lobbySound = new Sonidos('audios/odissey.mp3', 0.04)
 const gameSound = new Sonidos('audios/slide 64.mp3', 0.03)
 const stepsMarioSound = new Sonidos('audios/pisada1.wav', 0.1)
 const stepsLuigiSound = new Sonidos('audios/pisada2.wav', 0.1)
